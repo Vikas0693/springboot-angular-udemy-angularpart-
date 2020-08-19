@@ -8,7 +8,8 @@ import { LogoutComponent } from './logout/logout.component';
 import { RouteGuardService } from './service/route-guard.service';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  //{ path: '', component: LoginComponent },
+  { path: '', redirectTo: 'login', pathMatch:'full' },//above instruction also does the same thing
   { path: 'login', component: LoginComponent },
   { path: 'welcome/:name', component: WelcomeComponent, canActivate:[RouteGuardService] },
   { path: 'todos', component: ListTodosComponent, canActivate:[RouteGuardService] },
