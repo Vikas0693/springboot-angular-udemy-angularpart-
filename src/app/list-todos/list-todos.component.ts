@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { TodoDataService } from '../service/data/todo-data.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export class Todo {
 
@@ -19,6 +20,7 @@ export class ListTodosComponent implements OnInit {
 
   todos:Todo[];
   datePipe;
+  message:string;
 
   constructor(private service: TodoDataService) {
       this.datePipe = new DatePipe('en-US');
@@ -36,4 +38,18 @@ export class ListTodosComponent implements OnInit {
     );
   }
 
+  deleteTodo(id:number){
+    this.service.deleteTodo('in28minutes',id).subscribe(
+      response => {
+        const indexToDelete = this.todos.findIndex(todo=> todo.id === id);
+        this.todos.splice(indexToDelete,1);
+        this.message='Successfuly deleted todo';
+      },
+      (error: HttpErrorResponse) => {
+        this.message = 'Unable to delete todo';
+      },
+      () => {
+      }
+    );
+  }
 }

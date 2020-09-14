@@ -1,13 +1,14 @@
 <h1>My Todo's</h1>
+<div class="alert alert-success" *ngIf="message">{{message}}</div>
 <div class="container">
 
-    <span>My Todo's</span>
     <table class="table">
         <thead>
             <tr>
                 <th>Description</th>
                 <th>TargetDate</th>
                 <th>IsCompleted</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@
                 <!-- Will convert this date format using new pipe directive which can be used everywhere via pipe separator -->
                 <td>{{datePipe.transform(todo.targetDate,'dd/MM/yyyy')}}</td>
                 <td>{{todo.done}}</td>
+                <td><button (click)="deleteTodo(todo.id)" class="btn btn-warning">DeleteTodo</button></td>
             </tr>
         </tbody>
     </table>
