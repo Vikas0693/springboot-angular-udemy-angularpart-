@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { TodoDataService } from '../service/data/todo-data.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 export class Todo {
 
@@ -22,7 +23,7 @@ export class ListTodosComponent implements OnInit {
   datePipe;
   message:string;
 
-  constructor(private service: TodoDataService) {
+  constructor(private service: TodoDataService, private router: Router) {
       this.datePipe = new DatePipe('en-US');
       /* this.todos.push(new Todo(1, 'Learn to Dance', false, new Date()));
       this.todos.push(new Todo(2, 'Become an Expert at Angular', false, new Date()));
@@ -51,5 +52,8 @@ export class ListTodosComponent implements OnInit {
       () => {
       }
     );
+  }
+  updateTodo(id:number){
+    this.router.navigate(['todos',id]);
   }
 }
