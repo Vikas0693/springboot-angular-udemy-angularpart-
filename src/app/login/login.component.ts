@@ -10,13 +10,14 @@ import { BasicAuthenticationService } from '../service/basic-authentication.serv
 })
 export class LoginComponent implements OnInit {
 
-  username=''
-  password=""
+  username='in28minutes'
+  password="dummy"
   errorMessage='Invalid Credentials'
   invalidLogin = false
 
   constructor(private router: Router, private hardcodedAuthentication: HardcodedAuthenticationService,
     private basicAuthenticationService: BasicAuthenticationService) { }
+
 
   ngOnInit(): void {
   }
@@ -33,8 +34,22 @@ export class LoginComponent implements OnInit {
   }
 
   handleBasicAuthLogin(){
-    console.log(`Username : ${this.username}`);
+    console.log(`IN handleBasicAuthLogin Username : ${this.username}`);
     this.basicAuthenticationService.executeBasicAuthenticationService(this.username, this.password).subscribe(
+      data => {
+        console.log(data);
+        this.router.navigate(['welcome',this.username]);
+        this.invalidLogin = false;
+      },
+      error => {
+        console.log(error);
+        this.invalidLogin = true;
+      }
+    )
+  }
+
+  handleJWTAuthLogin(){
+    this.basicAuthenticationService.executeJWTAuthenticationService(this.username, this.password).subscribe(
       data => {
         console.log(data);
         this.router.navigate(['welcome',this.username]);
